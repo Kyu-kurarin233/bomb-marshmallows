@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    padding: 20px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header p {
+    margin-bottom: 0;
+}
+
+/* Main layout */
+main {
+    display: flex;      /*变成左右排列*/
+    min-height: 80vh;   /*至少占浏览器高度的80%*/
+}
+
+/* Sidebar
+左边课程栏，在html里面叫sidebar
+就可以在css里面找到.sidebar{ } */
+.sidebar {
+    width: 220px;
+    padding: 20px;
+    background-color: white;
+    border-right: 1px solid #ddd;   /*solid是实线，扮演sidebar和content之间的边线*/
+}
+
+/*找到.sidebar里面所有button并且应用这个css*/
+.sidebar button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;     /*margin是元素外的空间*/ 
+
+    border: none;
+    border-radius: 5px;        /*按钮变成圆角*/
+
+    cursor: pointer;           /*鼠标可以点击*/
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 40px;
+}
