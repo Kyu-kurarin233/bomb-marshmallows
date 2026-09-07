@@ -231,7 +231,6 @@ function showNotes(courseName, weekName) {
 
 
     // Show existing notes
-
     for (let i = 0; i < notes.length; i++) {
 
         const note =
@@ -312,7 +311,6 @@ function showNote(courseName, weekName, noteIndex) {
 
 
     // Page title
-
     pageTitle.textContent =
         note.title;
 
@@ -321,12 +319,10 @@ function showNote(courseName, weekName, noteIndex) {
 
 
     // Clear old content
-
     noteContent.innerHTML = "";
 
 
     // Show note content
-
     const content =
         document.createElement("p");
 
@@ -336,8 +332,38 @@ function showNote(courseName, weekName, noteIndex) {
     noteContent.appendChild(content);
 
 
-    // Delete button
+    // Edit button
+    const editButton =
+        document.createElement("button");
 
+    editButton.textContent =
+        "✏️ Edit Note";
+
+    editButton.classList.add(
+        "edit-note-button"
+    );
+
+
+    editButton.addEventListener(
+        "click",
+        function () {
+
+            showEditNoteForm(
+                courseName,
+                weekName,
+                noteIndex
+            );
+
+        }
+    );
+
+
+    noteContent.appendChild(
+        editButton
+    );
+
+
+    // Delete button
     const deleteButton =
         document.createElement("button");
 
@@ -384,7 +410,6 @@ function showAddNoteForm(courseName, weekName) {
 
 
     //标题
-
     const titleLabel =
         document.createElement("label");
 
@@ -403,7 +428,6 @@ function showAddNoteForm(courseName, weekName) {
 
 
     //目录Content
-
     const contentLabel =
         document.createElement("label");
 
@@ -419,7 +443,6 @@ function showAddNoteForm(courseName, weekName) {
 
 
     //保存键
-
     const saveButton =
         document.createElement("button");
 
@@ -428,7 +451,6 @@ function showAddNoteForm(courseName, weekName) {
 
 
     //取消保存
-
     const cancelButton =
         document.createElement("button");
 
@@ -437,7 +459,6 @@ function showAddNoteForm(courseName, weekName) {
 
 
     // Save Click Event
-
     saveButton.addEventListener(
         "click",
         function () {
@@ -454,7 +475,6 @@ function showAddNoteForm(courseName, weekName) {
 
 
     // Cancel Click Event
-
     cancelButton.addEventListener(
         "click",
         function () {
@@ -469,7 +489,6 @@ function showAddNoteForm(courseName, weekName) {
 
 
     // Put everything on page
-
     noteContent.appendChild(
         titleLabel
     );
@@ -504,7 +523,6 @@ function addNote(
 ) {
 
     // Remove extra spaces
-
     title =
         title.trim();
 
@@ -513,7 +531,6 @@ function addNote(
 
 
     // Check empty title
-
     if (title === "") {
 
         alert(
@@ -526,7 +543,6 @@ function addNote(
 
 
     // Check empty content
-
     if (content === "") {
 
         alert(
@@ -539,7 +555,6 @@ function addNote(
 
 
     // Create new note
-
     const newNote = {
 
         title: title,
@@ -550,14 +565,12 @@ function addNote(
 
 
     // Add to correct Week
-
     courses[courseName]
         .weeks[weekName]
         .push(newNote);
 
 
     // Return to Note List
-
     showNotes(
         courseName,
         weekName
@@ -578,7 +591,6 @@ function deleteNote(
 
 
     // User clicked Cancel
-
     if (!confirmDelete) {
 
         return;
@@ -587,14 +599,12 @@ function deleteNote(
 
 
     // Find notes
-
     const notes =
         courses[courseName]
             .weeks[weekName];
 
 
     // Remove note
-
     notes.splice(
         noteIndex,
         1
@@ -602,10 +612,223 @@ function deleteNote(
 
 
     // Return to note list
-
     showNotes(
         courseName,
         weekName
+    );
+
+}
+
+function showEditNoteForm(
+    courseName,
+    weekName,
+    noteIndex
+) {
+
+    // Find current note
+
+    const course =
+        courses[courseName];
+
+    const notes =
+        course.weeks[weekName];
+
+    const note =
+        notes[noteIndex];
+
+
+    // Page title
+
+    pageTitle.textContent =
+        "Edit Note";
+
+    pageDescription.textContent =
+        courseName + " - " + weekName;
+
+
+    // Clear old content
+
+    noteContent.innerHTML = "";
+
+
+    // Title
+
+    const titleLabel =
+        document.createElement("label");
+
+    titleLabel.textContent =
+        "Note Title";
+
+
+    const titleInput =
+        document.createElement("input");
+
+    titleInput.type =
+        "text";
+
+    // Put old title into input
+    titleInput.value =
+        note.title;
+
+
+    // Content
+
+    const contentLabel =
+        document.createElement("label");
+
+    contentLabel.textContent =
+        "Note Content";
+
+
+    const contentInput =
+        document.createElement("textarea");
+
+    // Put old content into textarea
+    contentInput.value =
+        note.content;
+
+
+    // Save Changes button
+
+    const saveButton =
+        document.createElement("button");
+
+    saveButton.textContent =
+        "💾 Save Changes";
+
+
+    // Cancel button
+
+    const cancelButton =
+        document.createElement("button");
+
+    cancelButton.textContent =
+        "Cancel";
+
+
+    // Save Click Event
+
+    saveButton.addEventListener(
+        "click",
+        function () {
+
+            updateNote(
+                courseName,
+                weekName,
+                noteIndex,
+                titleInput.value,
+                contentInput.value
+            );
+
+        }
+    );
+
+
+    // Cancel Click Event
+
+    cancelButton.addEventListener(
+        "click",
+        function () {
+
+            showNote(
+                courseName,
+                weekName,
+                noteIndex
+            );
+
+        }
+    );
+
+
+    // Put everything on page
+
+    noteContent.appendChild(
+        titleLabel
+    );
+
+    noteContent.appendChild(
+        titleInput
+    );
+
+    noteContent.appendChild(
+        contentLabel
+    );
+
+    noteContent.appendChild(
+        contentInput
+    );
+
+    noteContent.appendChild(
+        saveButton
+    );
+
+    noteContent.appendChild(
+        cancelButton
+    );
+
+}
+
+//更新
+function updateNote(
+    courseName,
+    weekName,
+    noteIndex,
+    newTitle,
+    newContent
+) {
+
+    // Remove extra spaces
+    newTitle =
+        newTitle.trim();
+
+    newContent =
+        newContent.trim();
+
+
+    // Check empty title
+    if (newTitle === "") {
+
+        alert(
+            "Please enter a note title."
+        );
+
+        return;
+
+    }
+
+
+    // Check empty content
+    if (newContent === "") {
+
+        alert(
+            "Please enter note content."
+        );
+
+        return;
+
+    }
+
+
+    // Find note
+    const note =
+        courses[courseName]
+            .weeks[weekName][noteIndex];
+
+
+    // Update title
+    note.title =
+        newTitle;
+
+    // Update content
+    note.content =
+        newContent;
+
+
+    // Show updated note
+    showNote(
+        courseName,
+        weekName,
+        noteIndex
     );
 
 }
