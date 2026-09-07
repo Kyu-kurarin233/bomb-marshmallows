@@ -391,8 +391,8 @@ function showNote(courseName, weekName, noteIndex) {
 
 }
 
-//添加笔记功能
 
+//添加笔记功能
 function showAddNoteForm(courseName, weekName) {
 
     pageTitle.textContent =
@@ -470,7 +470,7 @@ function showAddNoteForm(courseName, weekName) {
     );
 
 
-    // Cancel Click Event
+    //Cancel Click Event
     cancelButton.addEventListener(
         "click",
         function () {
@@ -484,7 +484,7 @@ function showAddNoteForm(courseName, weekName) {
     );
 
 
-    // Put everything on page
+    //Put everything on page
     noteContent.appendChild(
         titleLabel
     );
@@ -518,7 +518,7 @@ function addNote(
     content
 ) {
 
-    // Remove extra spaces
+    //Remove extra spaces
     title =
         title.trim();
 
@@ -526,7 +526,7 @@ function addNote(
         content.trim();
 
 
-    // Check empty title
+    //Check empty title
     if (title === "") {
 
         alert(
@@ -538,7 +538,7 @@ function addNote(
     }
 
 
-    // Check empty content
+    //Check empty content
     if (content === "") {
 
         alert(
@@ -550,7 +550,7 @@ function addNote(
     }
 
 
-    // Create new note
+    //Create new note
     const newNote = {
 
         title: title,
@@ -560,7 +560,7 @@ function addNote(
     };
 
 
-    // Add to correct Week
+    //Add to correct Week
     courses[courseName]
         .weeks[weekName]
         .push(newNote);
@@ -569,7 +569,7 @@ function addNote(
     saveCourses();
 
 
-    // Return to Note List
+    //Return to Note List
     showNotes(
         courseName,
         weekName
@@ -589,7 +589,7 @@ function deleteNote(
         );
 
 
-    // User clicked Cancel
+    //User clicked Cancel
     if (!confirmDelete) {
 
         return;
@@ -597,13 +597,13 @@ function deleteNote(
     }
 
 
-    // Find notes
+    //Find notes
     const notes =
         courses[courseName]
             .weeks[weekName];
 
 
-    // Remove note
+    //Remove note
     notes.splice(
         noteIndex,
         1
@@ -612,7 +612,7 @@ function deleteNote(
     //save changes
     saveCourses();
 
-    // Return to note list
+    //Return to note list
     showNotes(
         courseName,
         weekName
@@ -626,7 +626,7 @@ function showEditNoteForm(
     noteIndex
 ) {
 
-    // Find current note
+    //Find current note
     const course =
         courses[courseName];
 
@@ -637,7 +637,7 @@ function showEditNoteForm(
         notes[noteIndex];
 
 
-    // Page title
+    //Page title
     pageTitle.textContent =
         "Edit Note";
 
@@ -645,11 +645,11 @@ function showEditNoteForm(
         courseName + " - " + weekName;
 
 
-    // Clear old content
+    //Clear old content
     noteContent.innerHTML = "";
 
 
-    // Title
+    //Title
     const titleLabel =
         document.createElement("label");
 
@@ -663,12 +663,12 @@ function showEditNoteForm(
     titleInput.type =
         "text";
 
-    // Put old title into input
+    //Put old title into input
     titleInput.value =
         note.title;
 
 
-    // Content
+    //Content
     const contentLabel =
         document.createElement("label");
 
@@ -679,12 +679,12 @@ function showEditNoteForm(
     const contentInput =
         document.createElement("textarea");
 
-    // Put old content into textarea
+    //Put old content into textarea
     contentInput.value =
         note.content;
 
 
-    // Save Changes button
+    //Save Changes button
     const saveButton =
         document.createElement("button");
 
@@ -692,7 +692,7 @@ function showEditNoteForm(
         "💾 Save Changes";
 
 
-    // Cancel button
+    //Cancel button
     const cancelButton =
         document.createElement("button");
 
@@ -700,7 +700,7 @@ function showEditNoteForm(
         "Cancel";
 
 
-    // Save Click Event
+    //Save Click Event
     saveButton.addEventListener(
         "click",
         function () {
@@ -717,7 +717,7 @@ function showEditNoteForm(
     );
 
 
-    // Cancel Click Event
+    //Cancel Click Event
     cancelButton.addEventListener(
         "click",
         function () {
@@ -732,8 +732,7 @@ function showEditNoteForm(
     );
 
 
-    // Put everything on page
-
+    //Put everything on page
     noteContent.appendChild(
         titleLabel
     );
@@ -769,7 +768,7 @@ function updateNote(
     newContent
 ) {
 
-    // Remove extra spaces
+    //Remove extra spaces
     newTitle =
         newTitle.trim();
 
@@ -777,7 +776,7 @@ function updateNote(
         newContent.trim();
 
 
-    // Check empty title
+    //Check empty title
     if (newTitle === "") {
 
         alert(
@@ -789,7 +788,7 @@ function updateNote(
     }
 
 
-    // Check empty content
+    //Check empty content
     if (newContent === "") {
 
         alert(
@@ -801,24 +800,24 @@ function updateNote(
     }
 
 
-    // Find note
+    //Find note
     const note =
         courses[courseName]
             .weeks[weekName][noteIndex];
 
 
-    // Update title
+    //Update title
     note.title =
         newTitle;
 
-    // Update content
+    //Update content
     note.content =
         newContent;
 
     //save changes
     saveCourses();
 
-    // Show updated note
+    //Show updated note
     showNote(
         courseName,
         weekName,
