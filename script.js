@@ -1,6 +1,5 @@
 // 1. Course Data
-
-const courses = {
+let courses = {
 
     KIT111: {
         title: "KIT111",
@@ -110,9 +109,11 @@ const courses = {
 
 };
 
+//load saved data
+courses = 
+    loadCourse();
 
 // 2. Find HTML Elements
-
 const courseButtons =
     document.querySelectorAll(".course-button");
 
@@ -130,7 +131,6 @@ const noteContent =
 
 
 // 3. Course Button Click
-
 courseButtons.forEach(function (button) {
 
     button.addEventListener("click", function () {
@@ -146,7 +146,6 @@ courseButtons.forEach(function (button) {
 
 
 // 4. Show Course
-
 function showCourse(courseName) {
 
     const course =
@@ -170,7 +169,6 @@ function showCourse(courseName) {
 
 
 // 5. Show Weeks
-
 function showWeeks(courseName) {
 
     const course =
@@ -210,7 +208,6 @@ function showWeeks(courseName) {
 
 
 // 6. Show Note
-
 function showNotes(courseName, weekName) {
 
     const course =
@@ -265,7 +262,6 @@ function showNotes(courseName, weekName) {
 
 
     // Add Note button
-
     const addButton =
         document.createElement("button");
 
@@ -569,6 +565,9 @@ function addNote(
         .weeks[weekName]
         .push(newNote);
 
+    //save changes
+    saveCourses();
+
 
     // Return to Note List
     showNotes(
@@ -610,6 +609,8 @@ function deleteNote(
         1
     );
 
+    //save changes
+    saveCourses();
 
     // Return to note list
     showNotes(
@@ -626,7 +627,6 @@ function showEditNoteForm(
 ) {
 
     // Find current note
-
     const course =
         courses[courseName];
 
@@ -638,7 +638,6 @@ function showEditNoteForm(
 
 
     // Page title
-
     pageTitle.textContent =
         "Edit Note";
 
@@ -647,12 +646,10 @@ function showEditNoteForm(
 
 
     // Clear old content
-
     noteContent.innerHTML = "";
 
 
     // Title
-
     const titleLabel =
         document.createElement("label");
 
@@ -672,7 +669,6 @@ function showEditNoteForm(
 
 
     // Content
-
     const contentLabel =
         document.createElement("label");
 
@@ -689,7 +685,6 @@ function showEditNoteForm(
 
 
     // Save Changes button
-
     const saveButton =
         document.createElement("button");
 
@@ -698,7 +693,6 @@ function showEditNoteForm(
 
 
     // Cancel button
-
     const cancelButton =
         document.createElement("button");
 
@@ -707,7 +701,6 @@ function showEditNoteForm(
 
 
     // Save Click Event
-
     saveButton.addEventListener(
         "click",
         function () {
@@ -725,7 +718,6 @@ function showEditNoteForm(
 
 
     // Cancel Click Event
-
     cancelButton.addEventListener(
         "click",
         function () {
@@ -823,6 +815,8 @@ function updateNote(
     note.content =
         newContent;
 
+    //save changes
+    saveCourses();
 
     // Show updated note
     showNote(
@@ -830,5 +824,36 @@ function updateNote(
         weekName,
         noteIndex
     );
+
+}
+
+//保存页面刷新后不会丢失数据
+function saveCourses() {
+
+    localStorage.setItem(
+        "StudyCourses",
+        JSON.stringify(courses)
+    );
+
+}
+
+function loadCourses() {
+
+    const savedCourses =
+        localStorage.getItem(
+            "StudyCourses"
+        );
+
+
+    if (savedCourses) {
+
+        return JSON.parse(
+            savedCourses
+        );
+
+    }
+
+
+    return courses;
 
 }
