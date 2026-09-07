@@ -7,10 +7,63 @@ const courses = {
         description: "Data Networks and Security",
 
         weeks: {
-            "Week 1": "Introduction to computer networks.",
-            "Week 2": "Network models and protocols.",
-            "Week 3": "IP addresses and subnetting.",
-            "Exam Revision": "KIT111 exam revision notes."
+
+            "Week 1": [
+                {
+                    title: "Network Basics",
+                    content: "Notes about basic computer networks."
+                },
+
+                {
+                    title: "TCP/IP Model",
+                    content: "Notes about the TCP/IP network model."
+                },
+
+                {
+                    title: "OSI Model",
+                    content: "Notes about the OSI network model."
+                }
+            ],
+
+
+            "Week 2": [
+                {
+                    title: "Network Protocols",
+                    content: "Notes about network protocols."
+                },
+
+                {
+                    title: "Communication",
+                    content: "Notes about communication in networks."
+                }
+            ],
+
+
+            "Week 3": [
+                {
+                    title: "IP Addresses",
+                    content: "Notes about IP addresses."
+                },
+
+                {
+                    title: "Subnetting",
+                    content: "Notes about subnetting."
+                }
+            ],
+
+
+            "Exam Revision": [
+                {
+                    title: "Important Questions",
+                    content: "Important questions for exam revision."
+                },
+
+                {
+                    title: "Network Summary",
+                    content: "Summary of important networking concepts."
+                }
+            ]
+
         }
     },
 
@@ -20,10 +73,38 @@ const courses = {
         description: "Programming",
 
         weeks: {
-            "Week 1": "Introduction to programming.",
-            "Week 2": "Variables and data types.",
-            "Week 3": "Conditions and loops.",
-            "Exam Revision": "KIT107 exam revision notes."
+
+            "Week 1": [
+                {
+                    title: "Introduction to Programming",
+                    content: "Basic programming concepts."
+                }
+            ],
+
+
+            "Week 2": [
+                {
+                    title: "Variables",
+                    content: "Notes about variables and data types."
+                }
+            ],
+
+
+            "Week 3": [
+                {
+                    title: "Conditions and Loops",
+                    content: "Notes about if statements and loops."
+                }
+            ],
+
+
+            "Exam Revision": [
+                {
+                    title: "Programming Revision",
+                    content: "Important programming concepts."
+                }
+            ]
+
         }
     }
 
@@ -95,7 +176,6 @@ function showWeeks(courseName) {
     const course =
         courses[courseName];
 
-
     weekSidebar.innerHTML =
         "<h3>Weeks</h3>";
 
@@ -105,7 +185,6 @@ function showWeeks(courseName) {
         const button =
             document.createElement("button");
 
-
         button.textContent =
             weekName;
 
@@ -114,7 +193,7 @@ function showWeeks(courseName) {
             "click",
             function () {
 
-                showNote(
+                showNotes(
                     courseName,
                     weekName
                 );
@@ -132,25 +211,84 @@ function showWeeks(courseName) {
 
 // 6. Show Note
 
-function showNote(courseName, weekName) {
+function showNotes(courseName, weekName) {
 
     const course =
         courses[courseName];
 
-
-    const note =
+    const notes =
         course.weeks[weekName];
 
 
     pageTitle.textContent =
         courseName + " - " + weekName;
 
+    pageDescription.textContent =
+        "Select a note to study.";
+
+
+    noteContent.innerHTML = "";
+
+
+    for (let i = 0; i < notes.length; i++) {
+
+        const note =
+            notes[i];
+
+
+        const button =
+            document.createElement("button");
+
+
+        button.textContent =
+            "📄 " + note.title;
+
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                showNote(
+                    courseName,
+                    weekName,
+                    i
+                );
+
+            }
+        );
+
+
+        noteContent.appendChild(button);
+
+    }
+
+}
+
+
+//点击图标显示真正内容
+function showNote(courseName, weekName, noteIndex) {
+
+    const course =
+        courses[courseName];
+
+
+    const notes =
+        course.weeks[weekName];
+
+
+    const note =
+        notes[noteIndex];
+
+
+    pageTitle.textContent =
+        note.title;
+
 
     pageDescription.textContent =
-        course.description;
+        courseName + " - " + weekName;
 
 
     noteContent.innerHTML =
-        "<p>" + note + "</p>";
+        "<p>" + note.content + "</p>";
 
 }
