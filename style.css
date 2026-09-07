@@ -57,3 +57,33 @@ main {
     flex: 1;
     padding: 40px;
 }
+
+/* Week Sidebar */
+.week-sidebar {
+    width: 220px;
+    padding: 20px;
+
+    background-color: #fafafa;
+
+    border-right: 1px solid #ddd;
+}
+
+.week-sidebar button {
+    width: 100%;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    background-color: #eaeaea;
+}
+
+.week-sidebar button:hover {
+    background-color: #d5d5d5;
+}

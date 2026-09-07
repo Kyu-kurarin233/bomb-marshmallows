@@ -16,42 +16,64 @@
     <!-- Website Header -->
     <header>
         <h1>📚Study Notes</h1>
-        <p>A personal learning and revision website</p>
+        <p>为了方便复习,mylo简直就是个狗屎网站啊。</p>
     </header>
 
 
     <!-- Main website area -->
     <main>
 
-        <!-- Left side: Course list -->
+    <!-- 左边：课程导航 -->
         <aside class="sidebar">
 
-            <h2>Courses</h2>
+            <h3>Courses</h3>
 
-            <button id="kit111Button">KIT111</button>
-            <button id="kit107Button">KIT107</button>
-            <button id="kit119Button">KIT119</button>
+            <button class="course-button" data-course="KIT111">
+                KIT111
+            </button>
+
+            <button class="course-button" data-course="KIT107">
+                KIT107
+            </button>
 
         </aside>
 
 
-        <!-- Right side: Note area -->
+        <!-- 中间：Week 导航 -->
+        <aside class="week-sidebar" id="weekSidebar">
+
+            <h3>Weeks</h3>
+
+            <p>Select a course first.</p>
+
+        </aside>
+
+
+        <!-- 右边：真正的笔记内容 -->
         <section class="content">
 
-        <h2 id="courseTitle">Welcome!?</h2>
+            <h2 id="pageTitle">
+                Ciallo ～(∠・ω< )⌒★ !
+            </h2>
 
-        <p id="courseDescription">
-            我不要挂科呜呜呜QAQ
-        </p>
+            <p id="pageDescription">
+                Select a course and week to start studying.
+            </p>
 
-        <p id="courseInfo">
-            I can use this website to record my notes,
-            revise my courses and organise my learning.
-        </p>
+            <div id="noteContent">
 
-</section>
+                <p>
+                    Your notes will appear here.
+                </p>
+
+            </div>
+
+        </section>
 
     </main>
+        
+
+
 
 
     <!-- Connect JavaScript -->
