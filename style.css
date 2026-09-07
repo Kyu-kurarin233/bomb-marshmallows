@@ -119,3 +119,67 @@ main {
     background-color: #f0f0f0;
 
 }
+
+/* Add Note Form */
+
+#noteContent label {
+
+    display: block;
+
+    margin-top: 15px;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+
+}
+
+
+#noteContent input,
+#noteContent textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 5px;
+
+    font-size: 16px;
+
+}
+
+
+#noteContent textarea {
+
+    min-height: 200px;
+
+    resize: vertical;
+
+}
+
+
+.add-note-button {
+
+    margin-top: 15px;
+
+    font-weight: bold;
+
+}
+
+/* Delete Note Button */
+
+.delete-note-button {
+
+    margin-top: 20px;
+
+    padding: 10px 15px;
+
+    cursor: pointer;
+
+}

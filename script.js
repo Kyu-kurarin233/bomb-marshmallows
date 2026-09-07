@@ -230,6 +230,8 @@ function showNotes(courseName, weekName) {
     noteContent.innerHTML = "";
 
 
+    // Show existing notes
+
     for (let i = 0; i < notes.length; i++) {
 
         const note =
@@ -262,6 +264,37 @@ function showNotes(courseName, weekName) {
 
     }
 
+
+    // Add Note button
+
+    const addButton =
+        document.createElement("button");
+
+
+    addButton.textContent =
+        "➕ Add Note";
+
+
+    addButton.classList.add(
+        "add-note-button"
+    );
+
+
+    addButton.addEventListener(
+        "click",
+        function () {
+
+            showAddNoteForm(
+                courseName,
+                weekName
+            );
+
+        }
+    );
+
+
+    noteContent.appendChild(addButton);
+
 }
 
 
@@ -271,24 +304,308 @@ function showNote(courseName, weekName, noteIndex) {
     const course =
         courses[courseName];
 
-
     const notes =
         course.weeks[weekName];
-
 
     const note =
         notes[noteIndex];
 
 
+    // Page title
+
     pageTitle.textContent =
         note.title;
-
 
     pageDescription.textContent =
         courseName + " - " + weekName;
 
 
-    noteContent.innerHTML =
-        "<p>" + note.content + "</p>";
+    // Clear old content
+
+    noteContent.innerHTML = "";
+
+
+    // Show note content
+
+    const content =
+        document.createElement("p");
+
+    content.textContent =
+        note.content;
+
+    noteContent.appendChild(content);
+
+
+    // Delete button
+
+    const deleteButton =
+        document.createElement("button");
+
+    deleteButton.textContent =
+        "🗑️ Delete Note";
+
+    deleteButton.classList.add(
+        "delete-note-button"
+    );
+
+
+    deleteButton.addEventListener(
+        "click",
+        function () {
+
+            deleteNote(
+                courseName,
+                weekName,
+                noteIndex
+            );
+
+        }
+    );
+
+
+    noteContent.appendChild(
+        deleteButton
+    );
+
+}
+
+//添加笔记功能
+
+function showAddNoteForm(courseName, weekName) {
+
+    pageTitle.textContent =
+        "Add New Note";
+
+    pageDescription.textContent =
+        courseName + " - " + weekName;
+
+
+    noteContent.innerHTML = "";
+
+
+    //标题
+
+    const titleLabel =
+        document.createElement("label");
+
+    titleLabel.textContent =
+        "Note Title";
+
+
+    const titleInput =
+        document.createElement("input");
+
+    titleInput.type =
+        "text";
+
+    titleInput.placeholder =
+        "Enter note title...";
+
+
+    //目录Content
+
+    const contentLabel =
+        document.createElement("label");
+
+    contentLabel.textContent =
+        "Note Content";
+
+
+    const contentInput =
+        document.createElement("textarea");
+
+    contentInput.placeholder =
+        "Write your notes here...";
+
+
+    //保存键
+
+    const saveButton =
+        document.createElement("button");
+
+    saveButton.textContent =
+        "💾 Save Note";
+
+
+    //取消保存
+
+    const cancelButton =
+        document.createElement("button");
+
+    cancelButton.textContent =
+        "Cancel";
+
+
+    // Save Click Event
+
+    saveButton.addEventListener(
+        "click",
+        function () {
+
+            addNote(
+                courseName,
+                weekName,
+                titleInput.value,
+                contentInput.value
+            );
+
+        }
+    );
+
+
+    // Cancel Click Event
+
+    cancelButton.addEventListener(
+        "click",
+        function () {
+
+            showNotes(
+                courseName,
+                weekName
+            );
+
+        }
+    );
+
+
+    // Put everything on page
+
+    noteContent.appendChild(
+        titleLabel
+    );
+
+    noteContent.appendChild(
+        titleInput
+    );
+
+    noteContent.appendChild(
+        contentLabel
+    );
+
+    noteContent.appendChild(
+        contentInput
+    );
+
+    noteContent.appendChild(
+        saveButton
+    );
+
+    noteContent.appendChild(
+        cancelButton
+    );
+
+}
+
+function addNote(
+    courseName,
+    weekName,
+    title,
+    content
+) {
+
+    // Remove extra spaces
+
+    title =
+        title.trim();
+
+    content =
+        content.trim();
+
+
+    // Check empty title
+
+    if (title === "") {
+
+        alert(
+            "Please enter a note title."
+        );
+
+        return;
+
+    }
+
+
+    // Check empty content
+
+    if (content === "") {
+
+        alert(
+            "Please enter note content."
+        );
+
+        return;
+
+    }
+
+
+    // Create new note
+
+    const newNote = {
+
+        title: title,
+
+        content: content
+
+    };
+
+
+    // Add to correct Week
+
+    courses[courseName]
+        .weeks[weekName]
+        .push(newNote);
+
+
+    // Return to Note List
+
+    showNotes(
+        courseName,
+        weekName
+    );
+
+}
+
+function deleteNote(
+    courseName,
+    weekName,
+    noteIndex
+) {
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this note?"
+        );
+
+
+    // User clicked Cancel
+
+    if (!confirmDelete) {
+
+        return;
+
+    }
+
+
+    // Find notes
+
+    const notes =
+        courses[courseName]
+            .weeks[weekName];
+
+
+    // Remove note
+
+    notes.splice(
+        noteIndex,
+        1
+    );
+
+
+    // Return to note list
+
+    showNotes(
+        courseName,
+        weekName
+    );
 
 }
