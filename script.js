@@ -111,7 +111,7 @@ let courses = {
 
 //load saved data
 courses = 
-    loadCourse();
+    loadCourses();
 
 // 2. Find HTML Elements
 const courseButtons =
