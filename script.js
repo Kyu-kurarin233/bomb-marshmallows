@@ -9,8 +9,8 @@ let courses = {
 
             "Week 1": [
                 {
-                    title: "Network Basics",
-                    content: "Notes about basic computer networks."
+                    title: "Introduction to Networking",
+                    content: "Notes about the Introduction to Networking."
                 },
 
                 {
