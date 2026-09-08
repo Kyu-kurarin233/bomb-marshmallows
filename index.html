@@ -1,87 +1,119 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Study Notes</title>
+```
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <!-- Connect CSS -->
-    <link rel="stylesheet" href="style.css">
+<title>Study Notes</title>
+
+<!-- Connect CSS -->
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+```
+
 </head>
-
 
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+```
+<!-- Website Header -->
+<header>
 
-    <!-- Website Header -->
-    <header>
-        <h1>📚Study Notes</h1>
-        <p>为了方便复习,mylo简直就是个狗屎网站啊。</p>
-    </header>
+    <h1>📚 Study Notes</h1>
+
+    <p>
+        为了方便复习，MyLO 简直就是个狗屎网站啊。
+    </p>
+
+</header>
 
 
-    <!-- Main website area -->
-    <main>
+<!-- Main website area -->
+<main>
 
     <!-- 左边：课程导航 -->
-        <aside class="sidebar">
+    <aside class="sidebar">
 
-            <h3>Courses</h3>
-
-            <button class="course-button" data-course="KIT111">
-                KIT111
-            </button>
-
-            <button class="course-button" data-course="KIT107">
-                KIT107
-            </button>
-
-        </aside>
+        <h3>Courses</h3>
 
 
-        <!-- 中间：Week 导航 -->
-        <aside class="week-sidebar" id="weekSidebar">
-
-            <h3>Weeks</h3>
-
-            <p>Select a course first.</p>
-
-        </aside>
+        <button
+            class="course-button"
+            data-course="KIT111"
+        >
+            KIT111
+        </button>
 
 
-        <!-- 右边：真正的笔记内容 -->
-        <section class="content">
+        <button
+            class="course-button"
+            data-course="KIT107"
+        >
+            KIT107
+        </button>
 
-            <h2 id="pageTitle">
-                Ciallo ～(∠・ω< )⌒★ !
-            </h2>
+    </aside>
 
-            <p id="pageDescription">
-                Select a course and week to start studying.
+
+    <!-- 中间：Week 导航 -->
+    <aside
+        class="week-sidebar"
+        id="weekSidebar"
+    >
+
+        <h3>Weeks</h3>
+
+        <p>
+            Select a course first.
+        </p>
+
+    </aside>
+
+
+    <!-- 右边：真正的笔记内容 -->
+    <section class="content">
+
+        <h2 id="pageTitle">
+            Ciallo ～(∠・ω< )⌒★ !
+        </h2>
+
+
+        <p id="pageDescription">
+            Select a course and week to start studying.
+        </p>
+
+
+        <div id="noteContent">
+
+            <p>
+                Notes will appear here.
             </p>
 
-            <div id="noteContent">
+        </div>
 
-                <p>
-                    Notes will appear here.
-                </p>
+    </section>
 
-            </div>
-
-        </section>
-
-    </main>
+</main>
 
 
-    <!-- Connect JavaScript -->
-    <script src="script.js"></script>
+<!-- JavaScript Libraries -->
+
+<!-- Markdown Library -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="script.js"></script>
+<!-- Your JavaScript -->
+<script src="script.js"></script>
+```
 
 </body>
 
