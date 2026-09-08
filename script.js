@@ -319,13 +319,15 @@ function showNote(courseName, weekName, noteIndex) {
 
 
     // Show note content
-    const content =
-        document.createElement("p");
+const content =
+    document.createElement("div");
 
-    content.textContent =
-        note.content;
+    content.classList.add("note-body");
 
-    noteContent.appendChild(content);
+content.innerHTML =
+    marked.parse(note.content);
+
+noteContent.appendChild(content);
 
 
     // Edit button
@@ -435,7 +437,7 @@ function showAddNoteForm(courseName, weekName) {
         document.createElement("textarea");
 
     contentInput.placeholder =
-        "Write your notes here...";
+    "Write your notes in Markdown...\n\n# Heading\n## Subheading\n- Bullet point\n**Bold text**";
 
 
     //保存键

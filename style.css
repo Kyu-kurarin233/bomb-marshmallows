@@ -197,3 +197,37 @@ main {
 #noteContent p {
     white-space: pre-wrap;
 }
+
+.note-body {
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.note-body h1,
+.note-body h2,
+.note-body h3 {
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.note-body p {
+    margin-bottom: 12px;
+}
+
+.note-body ul,
+.note-body ol {
+    padding-left: 25px;
+}
+
+.note-body code {
+    padding: 2px 5px;
+    border-radius: 4px;
+    background: #f0f0f0;
+}
+
+.note-body pre {
+    padding: 15px;
+    overflow-x: auto;
+    border-radius: 8px;
+    background: #f5f5f5;
+}
