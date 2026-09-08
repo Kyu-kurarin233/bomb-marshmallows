@@ -25,6 +25,7 @@ KIT111: {
             }
         ],
 
+
         "Week 2": [
             {
                 title: "Network Protocols",
@@ -37,6 +38,7 @@ KIT111: {
             }
         ],
 
+
         "Week 3": [
             {
                 title: "IP Addresses",
@@ -48,6 +50,7 @@ KIT111: {
                 content: "# Subnetting\n\nNotes about subnetting."
             }
         ],
+
 
         "Exam Revision": [
             {
@@ -78,6 +81,7 @@ KIT107: {
             }
         ],
 
+
         "Week 2": [
             {
                 title: "Variables",
@@ -85,12 +89,14 @@ KIT107: {
             }
         ],
 
+
         "Week 3": [
             {
                 title: "Conditions and Loops",
                 content: "# Conditions and Loops\n\nNotes about if statements and loops."
             }
         ],
+
 
         "Exam Revision": [
             {
@@ -106,8 +112,7 @@ KIT107: {
 
 // 2. Load Saved Data
 
-courses =
-loadCourses();
+courses = loadCourses();
 
 // 3. Find HTML Elements
 
@@ -126,18 +131,21 @@ document.getElementById("pageDescription");
 const noteContent =
 document.getElementById("noteContent");
 
-// 4. Course Button Click
+// 4. Course Button Events
 
 courseButtons.forEach(function (button) {
 
-button.addEventListener("click", function () {
+button.addEventListener(
+    "click",
+    function () {
 
-    const courseName =
-        button.dataset.course;
+        const courseName =
+            button.dataset.course;
 
-    showCourse(courseName);
+        showCourse(courseName);
 
-});
+    }
+);
 
 });
 
@@ -199,13 +207,15 @@ for (const weekName in course.weeks) {
     );
 
 
-    weekSidebar.appendChild(button);
+    weekSidebar.appendChild(
+        button
+    );
 
 }
 
 }
 
-// 7. Show Notes
+// 7. Show Notes List
 
 function showNotes(courseName, weekName) {
 
@@ -226,7 +236,7 @@ pageDescription.textContent =
 noteContent.innerHTML = "";
 
 
-// Show existing notes
+// Show notes
 
 for (let i = 0; i < notes.length; i++) {
 
@@ -256,7 +266,9 @@ for (let i = 0; i < notes.length; i++) {
     );
 
 
-    noteContent.appendChild(button);
+    noteContent.appendChild(
+        button
+    );
 
 }
 
@@ -269,7 +281,6 @@ const addButton =
 
 addButton.textContent =
     "➕ Add Note";
-
 
 addButton.classList.add(
     "add-note-button"
@@ -289,25 +300,24 @@ addButton.addEventListener(
 );
 
 
-noteContent.appendChild(addButton);
+noteContent.appendChild(
+    addButton
+);
 
 }
 
 // 8. Show One Note
 
-function showNote(courseName, weekName, noteIndex) {
-
-const course =
-    courses[courseName];
-
-const notes =
-    course.weeks[weekName];
+function showNote(
+courseName,
+weekName,
+noteIndex
+) {
 
 const note =
-    notes[noteIndex];
+    courses[courseName]
+        .weeks[weekName][noteIndex];
 
-
-// Page title
 
 pageTitle.textContent =
     note.title;
@@ -316,14 +326,10 @@ pageDescription.textContent =
     courseName + " - " + weekName;
 
 
-// Clear old content
-
 noteContent.innerHTML = "";
 
 
-// ==========================
-// Show Markdown Content
-// ==========================
+// Markdown content
 
 const content =
     document.createElement("div");
@@ -333,8 +339,6 @@ content.classList.add(
     "note-body"
 );
 
-
-// Check whether Marked loaded correctly
 
 if (typeof marked !== "undefined") {
 
@@ -360,9 +364,7 @@ noteContent.appendChild(
 );
 
 
-// ==========================
-// Edit Button
-// ==========================
+// Edit button
 
 const editButton =
     document.createElement("button");
@@ -370,7 +372,6 @@ const editButton =
 
 editButton.textContent =
     "✏️ Edit Note";
-
 
 editButton.classList.add(
     "edit-note-button"
@@ -396,9 +397,7 @@ noteContent.appendChild(
 );
 
 
-// ==========================
-// Delete Button
-// ==========================
+// Delete button
 
 const deleteButton =
     document.createElement("button");
@@ -406,7 +405,6 @@ const deleteButton =
 
 deleteButton.textContent =
     "🗑️ Delete Note";
-
 
 deleteButton.classList.add(
     "delete-note-button"
@@ -435,8 +433,10 @@ noteContent.appendChild(
 
 // 9. Show Add Note Form
 
-function showAddNoteForm(courseName, weekName) {
-
+function showAddNoteForm(
+courseName,
+weekName
+) {
 
 pageTitle.textContent =
     "Add New Note";
@@ -448,7 +448,7 @@ pageDescription.textContent =
 noteContent.innerHTML = "";
 
 
-// Title
+// Note Title
 
 const titleLabel =
     document.createElement("label");
@@ -467,24 +467,123 @@ titleInput.placeholder =
     "Enter note title...";
 
 
-// Content
+// Editor Container
 
-const contentLabel =
-    document.createElement("label");
+const editorContainer =
+    document.createElement("div");
 
-contentLabel.textContent =
-    "Note Content (Markdown)";
+editorContainer.classList.add(
+    "editor-container"
+);
+
+
+// LEFT: Markdown Editor
+
+const editorSide =
+    document.createElement("div");
+
+editorSide.classList.add(
+    "editor-side"
+);
+
+
+const editorTitle =
+    document.createElement("h3");
+
+editorTitle.textContent =
+    "✏️ Markdown Editor";
 
 
 const contentInput =
     document.createElement("textarea");
 
-
 contentInput.placeholder =
     "# Heading\n\n## Subheading\n\nWrite your notes here...\n\n- Bullet point\n- Another point\n\n**Bold text**";
 
 
-// Save Button
+editorSide.appendChild(
+    editorTitle
+);
+
+editorSide.appendChild(
+    contentInput
+);
+
+
+// RIGHT: Preview
+
+const previewSide =
+    document.createElement("div");
+
+previewSide.classList.add(
+    "preview-side"
+);
+
+
+const previewTitle =
+    document.createElement("h3");
+
+previewTitle.textContent =
+    "👀 Preview";
+
+
+const preview =
+    document.createElement("div");
+
+preview.classList.add(
+    "markdown-preview"
+);
+
+
+preview.innerHTML =
+    "<p>Preview will appear here...</p>";
+
+
+previewSide.appendChild(
+    previewTitle
+);
+
+previewSide.appendChild(
+    preview
+);
+
+
+// Put left + right together
+
+editorContainer.appendChild(
+    editorSide
+);
+
+editorContainer.appendChild(
+    previewSide
+);
+
+
+// LIVE PREVIEW
+
+contentInput.addEventListener(
+    "input",
+    function () {
+
+        if (typeof marked !== "undefined") {
+
+            preview.innerHTML =
+                marked.parse(
+                    contentInput.value
+                );
+
+        } else {
+
+            preview.textContent =
+                contentInput.value;
+
+        }
+
+    }
+);
+
+
+// Buttons
 
 const saveButton =
     document.createElement("button");
@@ -493,16 +592,12 @@ saveButton.textContent =
     "💾 Save Note";
 
 
-// Cancel Button
-
 const cancelButton =
     document.createElement("button");
 
 cancelButton.textContent =
     "Cancel";
 
-
-// Save Event
 
 saveButton.addEventListener(
     "click",
@@ -519,8 +614,6 @@ saveButton.addEventListener(
 );
 
 
-// Cancel Event
-
 cancelButton.addEventListener(
     "click",
     function () {
@@ -534,7 +627,7 @@ cancelButton.addEventListener(
 );
 
 
-// Add everything to page
+// Add to Page
 
 noteContent.appendChild(
     titleLabel
@@ -545,11 +638,7 @@ noteContent.appendChild(
 );
 
 noteContent.appendChild(
-    contentLabel
-);
-
-noteContent.appendChild(
-    contentInput
+    editorContainer
 );
 
 noteContent.appendChild(
@@ -571,15 +660,12 @@ title,
 content
 ) {
 
-
 title =
     title.trim();
 
 content =
     content.trim();
 
-
-// Check title
 
 if (title === "") {
 
@@ -592,8 +678,6 @@ if (title === "") {
 }
 
 
-// Check content
-
 if (content === "") {
 
     alert(
@@ -605,8 +689,6 @@ if (content === "") {
 }
 
 
-// Create new note
-
 const newNote = {
 
     title: title,
@@ -616,25 +698,20 @@ const newNote = {
 };
 
 
-// Add note
-
 courses[courseName]
     .weeks[weekName]
-    .push(newNote);
+    .push(
+        newNote
+    );
 
-
-// Save
 
 saveCourses();
 
-
-// Return to notes
 
 showNotes(
     courseName,
     weekName
 );
-
 
 }
 
@@ -645,7 +722,6 @@ courseName,
 weekName,
 noteIndex
 ) {
-
 
 const confirmDelete =
     confirm(
@@ -665,30 +741,23 @@ const notes =
         .weeks[weekName];
 
 
-// Delete note
-
 notes.splice(
     noteIndex,
     1
 );
 
 
-// Save
-
 saveCourses();
 
-
-// Return
 
 showNotes(
     courseName,
     weekName
 );
 
-
 }
 
-// 12. Show Edit Form
+// 12. Show Edit Note Form
 
 function showEditNoteForm(
 courseName,
@@ -696,14 +765,9 @@ weekName,
 noteIndex
 ) {
 
-const course =
-    courses[courseName];
-
-const notes =
-    course.weeks[weekName];
-
 const note =
-    notes[noteIndex];
+    courses[courseName]
+        .weeks[weekName][noteIndex];
 
 
 pageTitle.textContent =
@@ -716,7 +780,7 @@ pageDescription.textContent =
 noteContent.innerHTML = "";
 
 
-// Title
+// Note Title
 
 const titleLabel =
     document.createElement("label");
@@ -735,13 +799,31 @@ titleInput.value =
     note.title;
 
 
-// Content
+// Editor Container
 
-const contentLabel =
-    document.createElement("label");
+const editorContainer =
+    document.createElement("div");
 
-contentLabel.textContent =
-    "Note Content (Markdown)";
+editorContainer.classList.add(
+    "editor-container"
+);
+
+
+// LEFT: Editor
+
+const editorSide =
+    document.createElement("div");
+
+editorSide.classList.add(
+    "editor-side"
+);
+
+
+const editorTitle =
+    document.createElement("h3");
+
+editorTitle.textContent =
+    "✏️ Markdown Editor";
 
 
 const contentInput =
@@ -751,7 +833,102 @@ contentInput.value =
     note.content;
 
 
-// Save
+editorSide.appendChild(
+    editorTitle
+);
+
+editorSide.appendChild(
+    contentInput
+);
+
+
+// RIGHT: Preview
+
+const previewSide =
+    document.createElement("div");
+
+previewSide.classList.add(
+    "preview-side"
+);
+
+
+const previewTitle =
+    document.createElement("h3");
+
+previewTitle.textContent =
+    "👀 Preview";
+
+
+const preview =
+    document.createElement("div");
+
+preview.classList.add(
+    "markdown-preview"
+);
+
+
+// Initial Preview
+
+if (typeof marked !== "undefined") {
+
+    preview.innerHTML =
+        marked.parse(
+            note.content
+        );
+
+} else {
+
+    preview.textContent =
+        note.content;
+
+}
+
+
+previewSide.appendChild(
+    previewTitle
+);
+
+previewSide.appendChild(
+    preview
+);
+
+
+// Put left + right together
+
+editorContainer.appendChild(
+    editorSide
+);
+
+editorContainer.appendChild(
+    previewSide
+);
+
+
+// LIVE PREVIEW
+
+contentInput.addEventListener(
+    "input",
+    function () {
+
+        if (typeof marked !== "undefined") {
+
+            preview.innerHTML =
+                marked.parse(
+                    contentInput.value
+                );
+
+        } else {
+
+            preview.textContent =
+                contentInput.value;
+
+        }
+
+    }
+);
+
+
+// Buttons
 
 const saveButton =
     document.createElement("button");
@@ -760,16 +937,12 @@ saveButton.textContent =
     "💾 Save Changes";
 
 
-// Cancel
-
 const cancelButton =
     document.createElement("button");
 
 cancelButton.textContent =
     "Cancel";
 
-
-// Save Event
 
 saveButton.addEventListener(
     "click",
@@ -787,8 +960,6 @@ saveButton.addEventListener(
 );
 
 
-// Cancel Event
-
 cancelButton.addEventListener(
     "click",
     function () {
@@ -803,7 +974,7 @@ cancelButton.addEventListener(
 );
 
 
-// Add everything
+// Add to Page
 
 noteContent.appendChild(
     titleLabel
@@ -814,11 +985,7 @@ noteContent.appendChild(
 );
 
 noteContent.appendChild(
-    contentLabel
-);
-
-noteContent.appendChild(
-    contentInput
+    editorContainer
 );
 
 noteContent.appendChild(
@@ -848,8 +1015,6 @@ newContent =
     newContent.trim();
 
 
-// Check title
-
 if (newTitle === "") {
 
     alert(
@@ -860,8 +1025,6 @@ if (newTitle === "") {
 
 }
 
-
-// Check content
 
 if (newContent === "") {
 
@@ -879,8 +1042,6 @@ const note =
         .weeks[weekName][noteIndex];
 
 
-// Update data
-
 note.title =
     newTitle;
 
@@ -888,12 +1049,8 @@ note.content =
     newContent;
 
 
-// Save
-
 saveCourses();
 
-
-// Show updated note
 
 showNote(
     courseName,
@@ -901,25 +1058,24 @@ showNote(
     noteIndex
 );
 
-
 }
 
-// 14. Save Courses
+// 14. Save Courses to localStorage
 
 function saveCourses() {
 
 localStorage.setItem(
     "StudyCourses",
-    JSON.stringify(courses)
+    JSON.stringify(
+        courses
+    )
 );
-
 
 }
 
-// 15. Load Courses
+// 15. Load Courses from localStorage
 
 function loadCourses() {
-
 
 const savedCourses =
     localStorage.getItem(
@@ -937,6 +1093,5 @@ if (savedCourses) {
 
 
 return courses;
-
 
 }

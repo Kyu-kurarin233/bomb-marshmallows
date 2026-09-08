@@ -1,233 +1,493 @@
+/*General*/
+
 * {
-    box-sizing: border-box;
-}
+  box-sizing: border-box;
+  }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+margin: 0;
+
+font-family: Arial, sans-serif;
+
+background-color: #f4f4f4;
+
 }
 
 /* Header */
+
 header {
-    padding: 20px;
-    text-align: center;
-    background-color: #333;
-    color: white;
+padding: 20px;
+
+text-align: center;
+
+background-color: #333;
+
+color: white;
+
 }
 
 header h1 {
-    margin: 0;
+margin: 0;
 }
 
 header p {
-    margin-bottom: 0;
+margin-bottom: 0;
 }
 
-/* Main layout */
+/* Main Layout*/
+
 main {
-    display: flex;      /*变成左右排列*/
-    min-height: 80vh;   /*至少占浏览器高度的80%*/
+display: flex;
+
+min-height: 80vh;
+
 }
 
-/* Sidebar
-左边课程栏，在html里面叫sidebar
-就可以在css里面找到.sidebar{ } */
+/* Course Sidebar*/
+
 .sidebar {
-    width: 220px;
-    padding: 20px;
-    background-color: white;
-    border-right: 1px solid #ddd;   /*solid是实线，扮演sidebar和content之间的边线*/
+width: 220px;
+
+padding: 20px;
+
+background-color: white;
+
+border-right: 1px solid #ddd;
+
+flex-shrink: 0;
+
 }
 
-/*找到.sidebar里面所有button并且应用这个css*/
+.sidebar h3 {
+margin-top: 0;
+}
+
 .sidebar button {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;     /*margin是元素外的空间*/ 
+width: 100%;
 
-    border: none;
-    border-radius: 5px;        /*按钮变成圆角*/
+padding: 12px;
 
-    cursor: pointer;           /*鼠标可以点击*/
+margin-bottom: 10px;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
 }
 
-/* Content */
-.content {
-    flex: 1;
-    padding: 40px;
+.sidebar button:hover {
+background-color: #eaeaea;
 }
 
 /* Week Sidebar */
+
 .week-sidebar {
-    width: 220px;
-    padding: 20px;
+width: 220px;
 
-    background-color: #fafafa;
+padding: 20px;
 
-    border-right: 1px solid #ddd;
+background-color: #fafafa;
+
+border-right: 1px solid #ddd;
+
+flex-shrink: 0;
+
+}
+
+.week-sidebar h3 {
+margin-top: 0;
 }
 
 .week-sidebar button {
-    width: 100%;
+width: 100%;
 
-    padding: 10px;
+padding: 10px;
 
-    margin-bottom: 10px;
+margin-bottom: 10px;
 
-    border: none;
+border: none;
 
-    border-radius: 5px;
+border-radius: 5px;
 
-    cursor: pointer;
+cursor: pointer;
 
-    background-color: #eaeaea;
+background-color: #eaeaea;
+
 }
 
 .week-sidebar button:hover {
-    background-color: #d5d5d5;
+background-color: #d5d5d5;
 }
 
-/* Note buttons */
-#noteContent button {
+/* Main Content*/
 
-    display: block;
+.content {
+flex: 1;
 
-    width: 100%;
+min-width: 0;
 
-    padding: 12px;
-
-    margin-bottom: 10px;
-
-    text-align: left;
-
-    border: none;
-
-    border-radius: 5px;
-
-    cursor: pointer;
-
-    background-color: white;
-
-    border: 1px solid #ddd;
-}
-
-
-#noteContent button:hover {
-
-    background-color: #f0f0f0;
+padding: 40px;
 
 }
 
-/* Add Note Form */
+/* Note List Buttons*/
+
+#noteContent > button {
+display: block;
+
+width: 100%;
+
+padding: 12px;
+
+margin-bottom: 10px;
+
+text-align: left;
+
+border: 1px solid #ddd;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+background-color: white;
+
+}
+
+#noteContent > button:hover {
+background-color: #f0f0f0;
+}
+
+/*Add / Edit Form*/
+
 #noteContent label {
+display: block;
 
-    display: block;
+margin-top: 15px;
 
-    margin-top: 15px;
+margin-bottom: 5px;
 
-    margin-bottom: 5px;
-
-    font-weight: bold;
-
-}
-
-
-#noteContent input,
-#noteContent textarea {
-
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 10px;
-
-    margin-bottom: 15px;
-
-    border: 1px solid #ccc;
-
-    border-radius: 5px;
-
-    font-size: 16px;
+font-weight: bold;
 
 }
 
+#noteContent input {
+width: 100%;
 
-#noteContent textarea {
+padding: 10px;
 
-    min-height: 200px;
+margin-bottom: 15px;
 
-    resize: vertical;
+border: 1px solid #ccc;
 
-}
+border-radius: 5px;
 
-
-.add-note-button {
-
-    margin-top: 15px;
-
-    font-weight: bold;
+font-size: 16px;
 
 }
 
-/* Delete Note Button */
-.delete-note-button {
+/* Markdown Editor Layout */
 
-    margin-top: 20px;
+.editor-container {
+display: flex;
 
-    padding: 10px 15px;
+width: 100%;
 
-    cursor: pointer;
+gap: 20px;
 
-}
+margin-top: 20px;
 
-/* Edit Note Button */
-.edit-note-button {
-
-    margin-top: 20px;
-
-    margin-right: 10px;
-
-    padding: 10px 15px;
-
-    cursor: pointer;
+margin-bottom: 20px;
 
 }
 
-#noteContent p {
-    white-space: pre-wrap;
+/* Left and Right */
+
+.editor-side,
+.preview-side {
+flex: 1;
+
+width: 50%;
+
+min-width: 0;
+
 }
+
+/* Editor */
+
+.editor-side {
+display: flex;
+
+flex-direction: column;
+
+}
+
+.editor-side h3 {
+margin-top: 0;
+
+margin-bottom: 10px;
+
+}
+
+.editor-side textarea {
+width: 100%;
+
+min-height: 450px;
+
+padding: 15px;
+
+resize: vertical;
+
+border: 1px solid #ccc;
+
+border-radius: 8px;
+
+font-size: 15px;
+
+font-family: monospace;
+
+line-height: 1.5;
+
+background-color: white;
+
+}
+
+/* Preview */
+
+.preview-side {
+min-height: 450px;
+
+padding: 15px;
+
+border: 1px solid #ddd;
+
+border-radius: 8px;
+
+background-color: white;
+
+overflow: hidden;
+
+}
+
+.preview-side h3 {
+margin-top: 0;
+
+margin-bottom: 10px;
+
+}
+
+.markdown-preview {
+line-height: 1.7;
+
+font-size: 16px;
+
+overflow-wrap: break-word;
+
+}
+
+/* Markdown Headings */
+
+.markdown-preview h1 {
+margin-top: 20px;
+
+margin-bottom: 12px;
+
+}
+
+.markdown-preview h2 {
+margin-top: 20px;
+
+margin-bottom: 12px;
+
+}
+
+.markdown-preview h3 {
+margin-top: 20px;
+
+margin-bottom: 12px;
+
+}
+
+/* Markdown Paragraph */
+
+.markdown-preview p {
+margin-bottom: 12px;
+}
+
+/* Markdown Lists */
+
+.markdown-preview ul,
+.markdown-preview ol {
+padding-left: 25px;
+}
+
+/* Markdown Code */
+
+.markdown-preview code {
+padding: 2px 5px;
+
+border-radius: 4px;
+
+background-color: #f0f0f0;
+
+font-family: monospace;
+
+}
+
+/* Markdown Code Block */
+
+.markdown-preview pre {
+padding: 15px;
+
+overflow-x: auto;
+
+border-radius: 8px;
+
+background-color: #f5f5f5;
+
+}
+
+.markdown-preview pre code {
+padding: 0;
+
+background-color: transparent;
+
+}
+
+/* Normal Note Display */
 
 .note-body {
-    line-height: 1.7;
-    font-size: 16px;
+line-height: 1.7;
+
+font-size: 16px;
+
+overflow-wrap: break-word;
+
+
 }
 
 .note-body h1,
 .note-body h2,
 .note-body h3 {
-    margin-top: 24px;
-    margin-bottom: 12px;
+margin-top: 24px;
+
+margin-bottom: 12px;
+
 }
 
 .note-body p {
-    margin-bottom: 12px;
+margin-bottom: 12px;
 }
 
 .note-body ul,
 .note-body ol {
-    padding-left: 25px;
+padding-left: 25px;
 }
 
 .note-body code {
-    padding: 2px 5px;
-    border-radius: 4px;
-    background: #f0f0f0;
+padding: 2px 5px;
+
+border-radius: 4px;
+
+background-color: #f0f0f0;
+
 }
 
 .note-body pre {
-    padding: 15px;
-    overflow-x: auto;
-    border-radius: 8px;
-    background: #f5f5f5;
+padding: 15px;
+
+overflow-x: auto;
+
+border-radius: 8px;
+
+background-color: #f5f5f5;
+
+}
+
+/* Add Note Button*/
+
+.add-note-button {
+margin-top: 15px;
+
+font-weight: bold;
+
+}
+
+/*Edit / Delete Buttons */
+
+.edit-note-button,
+.delete-note-button {
+display: inline-block !important;
+
+width: auto !important;
+
+padding: 10px 15px !important;
+
+margin-top: 20px;
+
+margin-right: 10px;
+
+text-align: center !important;
+
+}
+
+.edit-note-button {
+cursor: pointer;
+}
+
+.delete-note-button {
+cursor: pointer;
+}
+
+/* Save / Cancel Buttons in Forms */
+
+#noteContent > button {
+cursor: pointer;
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+
+main {
+    flex-direction: column;
+}
+
+
+.sidebar,
+.week-sidebar {
+    width: 100%;
+
+    border-right: none;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.content {
+    padding: 20px;
+}
+
+
+.editor-container {
+    flex-direction: column;
+}
+
+
+.editor-side,
+.preview-side {
+    width: 100%;
+}
+
+
+.editor-side textarea {
+    min-height: 300px;
+}
+
+
+.preview-side {
+    min-height: 300px;
+}
+
 }
