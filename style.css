@@ -193,3 +193,7 @@ main {
     cursor: pointer;
 
 }
+
+#noteContent p {
+    white-space: pre-wrap;
+}
