@@ -25,7 +25,6 @@ KIT111: {
             }
         ],
 
-
         "Week 2": [
             {
                 title: "Network Protocols",
@@ -38,7 +37,6 @@ KIT111: {
             }
         ],
 
-
         "Week 3": [
             {
                 title: "IP Addresses",
@@ -50,7 +48,6 @@ KIT111: {
                 content: "# Subnetting\n\nNotes about subnetting."
             }
         ],
-
 
         "Exam Revision": [
             {
@@ -81,7 +78,6 @@ KIT107: {
             }
         ],
 
-
         "Week 2": [
             {
                 title: "Variables",
@@ -89,14 +85,12 @@ KIT107: {
             }
         ],
 
-
         "Week 3": [
             {
                 title: "Conditions and Loops",
                 content: "# Conditions and Loops\n\nNotes about if statements and loops."
             }
         ],
-
 
         "Exam Revision": [
             {
@@ -108,6 +102,7 @@ KIT107: {
     }
 }
 
+
 };
 
 // 2. Load Saved Data
@@ -116,8 +111,11 @@ courses = loadCourses();
 
 // 3. Find HTML Elements
 
-const courseButtons =
-document.querySelectorAll(".course-button");
+const courseList =
+document.getElementById("courseList");
+
+const addCourseButton =
+document.getElementById("addCourseButton");
 
 const weekSidebar =
 document.getElementById("weekSidebar");
@@ -131,25 +129,284 @@ document.getElementById("pageDescription");
 const noteContent =
 document.getElementById("noteContent");
 
-// 4. Course Button Events
+// 4. Show Courses
 
-courseButtons.forEach(function (button) {
+function showCourses() {
 
-button.addEventListener(
+courseList.innerHTML = "";
+
+
+for (const courseName in courses) {
+
+    const course =
+        courses[courseName];
+
+
+    const button =
+        document.createElement("button");
+
+
+    button.textContent =
+        course.title;
+
+
+    button.classList.add(
+        "course-button"
+    );
+
+
+    button.addEventListener(
+        "click",
+        function () {
+
+            showCourse(
+                courseName
+            );
+
+        }
+    );
+
+
+    courseList.appendChild(
+        button
+    );
+
+}
+
+}
+
+// 5. Add Course Button
+
+addCourseButton.addEventListener(
+"click",
+function () {
+
+    showAddCourseForm();
+
+}
+
+);
+
+// 6. Show Add Course Form
+
+function showAddCourseForm() {
+
+pageTitle.textContent =
+    "Add New Course";
+
+
+pageDescription.textContent =
+    "Create a new course for your study notes.";
+
+
+noteContent.innerHTML = "";
+
+
+// Course Code
+
+const codeLabel =
+    document.createElement("label");
+
+
+codeLabel.textContent =
+    "Course Code";
+
+
+const codeInput =
+    document.createElement("input");
+
+
+codeInput.type =
+    "text";
+
+
+codeInput.placeholder =
+    "Example: KIT119";
+
+
+// Course Name
+
+const nameLabel =
+    document.createElement("label");
+
+
+nameLabel.textContent =
+    "Course Name";
+
+
+const nameInput =
+    document.createElement("input");
+
+
+nameInput.type =
+    "text";
+
+
+nameInput.placeholder =
+    "Example: Programming Fundamentals";
+
+
+// Create Button
+
+const createButton =
+    document.createElement("button");
+
+
+createButton.textContent =
+    "➕ Create Course";
+
+
+// Cancel Button
+
+const cancelButton =
+    document.createElement("button");
+
+
+cancelButton.textContent =
+    "Cancel";
+
+
+// Create Event
+
+createButton.addEventListener(
     "click",
     function () {
 
-        const courseName =
-            button.dataset.course;
-
-        showCourse(courseName);
+        addCourse(
+            codeInput.value,
+            nameInput.value
+        );
 
     }
 );
 
-});
 
-// 5. Show Course
+// Cancel Event
+
+cancelButton.addEventListener(
+    "click",
+    function () {
+
+        pageTitle.textContent =
+            "Study Notes";
+
+
+        pageDescription.textContent =
+            "Select a course and week to start studying.";
+
+
+        noteContent.innerHTML =
+            "<p>Select a course to start studying.</p>";
+
+    }
+);
+
+
+// Add Elements
+
+noteContent.appendChild(
+    codeLabel
+);
+
+
+noteContent.appendChild(
+    codeInput
+);
+
+
+noteContent.appendChild(
+    nameLabel
+);
+
+
+noteContent.appendChild(
+    nameInput
+);
+
+
+noteContent.appendChild(
+    createButton
+);
+
+
+noteContent.appendChild(
+    cancelButton
+);
+
+}
+
+// 7. Create Course
+
+function addCourse(
+courseCode,
+courseName
+) {
+
+courseCode =
+    courseCode.trim().toUpperCase();
+
+
+courseName =
+    courseName.trim();
+
+
+if (courseCode === "") {
+
+    alert(
+        "Please enter a course code."
+    );
+
+    return;
+
+}
+
+
+if (courseName === "") {
+
+    alert(
+        "Please enter a course name."
+    );
+
+    return;
+
+}
+
+
+if (courses[courseCode]) {
+
+    alert(
+        "This course already exists."
+    );
+
+    return;
+
+}
+
+
+courses[courseCode] = {
+
+    title: courseCode,
+
+    description: courseName,
+
+    weeks: {}
+
+};
+
+
+saveCourses();
+
+
+showCourses();
+
+
+showCourse(
+    courseCode
+);
+
+}
+
+// 8. Show Course
 
 function showCourse(courseName) {
 
@@ -160,6 +417,7 @@ const course =
 pageTitle.textContent =
     course.title;
 
+
 pageDescription.textContent =
     course.description;
 
@@ -168,11 +426,13 @@ noteContent.innerHTML =
     "<p>Select a week from the left.</p>";
 
 
-showWeeks(courseName);
+showWeeks(
+    courseName
+);
 
 }
 
-// 6. Show Weeks
+// 9. Show Weeks
 
 function showWeeks(courseName) {
 
@@ -215,19 +475,21 @@ for (const weekName in course.weeks) {
 
 }
 
-// 7. Show Notes List
+// 10. Show Notes List
 
-function showNotes(courseName, weekName) {
-
-const course =
-    courses[courseName];
+function showNotes(
+courseName,
+weekName
+) {
 
 const notes =
-    course.weeks[weekName];
+    courses[courseName]
+        .weeks[weekName];
 
 
 pageTitle.textContent =
     courseName + " - " + weekName;
+
 
 pageDescription.textContent =
     "Select a note to study.";
@@ -236,9 +498,13 @@ pageDescription.textContent =
 noteContent.innerHTML = "";
 
 
-// Show notes
+// Show Notes
 
-for (let i = 0; i < notes.length; i++) {
+for (
+    let i = 0;
+    i < notes.length;
+    i++
+) {
 
     const note =
         notes[i];
@@ -273,7 +539,7 @@ for (let i = 0; i < notes.length; i++) {
 }
 
 
-// Add Note button
+// Add Note Button
 
 const addButton =
     document.createElement("button");
@@ -281,6 +547,7 @@ const addButton =
 
 addButton.textContent =
     "➕ Add Note";
+
 
 addButton.classList.add(
     "add-note-button"
@@ -306,7 +573,7 @@ noteContent.appendChild(
 
 }
 
-// 8. Show One Note
+// 11. Show One Note
 
 function showNote(
 courseName,
@@ -322,6 +589,7 @@ const note =
 pageTitle.textContent =
     note.title;
 
+
 pageDescription.textContent =
     courseName + " - " + weekName;
 
@@ -329,7 +597,7 @@ pageDescription.textContent =
 noteContent.innerHTML = "";
 
 
-// Markdown content
+// Markdown Content
 
 const content =
     document.createElement("div");
@@ -364,7 +632,7 @@ noteContent.appendChild(
 );
 
 
-// Edit button
+// Edit Button
 
 const editButton =
     document.createElement("button");
@@ -372,6 +640,7 @@ const editButton =
 
 editButton.textContent =
     "✏️ Edit Note";
+
 
 editButton.classList.add(
     "edit-note-button"
@@ -397,7 +666,7 @@ noteContent.appendChild(
 );
 
 
-// Delete button
+// Delete Button
 
 const deleteButton =
     document.createElement("button");
@@ -405,6 +674,7 @@ const deleteButton =
 
 deleteButton.textContent =
     "🗑️ Delete Note";
+
 
 deleteButton.classList.add(
     "delete-note-button"
@@ -431,7 +701,7 @@ noteContent.appendChild(
 
 }
 
-// 9. Show Add Note Form
+// 12. Show Add Note Form
 
 function showAddNoteForm(
 courseName,
@@ -440,6 +710,7 @@ weekName
 
 pageTitle.textContent =
     "Add New Note";
+
 
 pageDescription.textContent =
     courseName + " - " + weekName;
@@ -453,6 +724,7 @@ noteContent.innerHTML = "";
 const titleLabel =
     document.createElement("label");
 
+
 titleLabel.textContent =
     "Note Title";
 
@@ -460,8 +732,10 @@ titleLabel.textContent =
 const titleInput =
     document.createElement("input");
 
+
 titleInput.type =
     "text";
+
 
 titleInput.placeholder =
     "Enter note title...";
@@ -472,15 +746,17 @@ titleInput.placeholder =
 const editorContainer =
     document.createElement("div");
 
+
 editorContainer.classList.add(
     "editor-container"
 );
 
 
-// LEFT: Markdown Editor
+// Editor Side
 
 const editorSide =
     document.createElement("div");
+
 
 editorSide.classList.add(
     "editor-side"
@@ -490,12 +766,14 @@ editorSide.classList.add(
 const editorTitle =
     document.createElement("h3");
 
+
 editorTitle.textContent =
     "✏️ Markdown Editor";
 
 
 const contentInput =
     document.createElement("textarea");
+
 
 contentInput.placeholder =
     "# Heading\n\n## Subheading\n\nWrite your notes here...\n\n- Bullet point\n- Another point\n\n**Bold text**";
@@ -505,15 +783,17 @@ editorSide.appendChild(
     editorTitle
 );
 
+
 editorSide.appendChild(
     contentInput
 );
 
 
-// RIGHT: Preview
+// Preview Side
 
 const previewSide =
     document.createElement("div");
+
 
 previewSide.classList.add(
     "preview-side"
@@ -523,12 +803,14 @@ previewSide.classList.add(
 const previewTitle =
     document.createElement("h3");
 
+
 previewTitle.textContent =
-    "👀 Preview";
+    "Preview";
 
 
 const preview =
     document.createElement("div");
+
 
 preview.classList.add(
     "markdown-preview"
@@ -543,29 +825,31 @@ previewSide.appendChild(
     previewTitle
 );
 
+
 previewSide.appendChild(
     preview
 );
 
 
-// Put left + right together
-
 editorContainer.appendChild(
     editorSide
 );
+
 
 editorContainer.appendChild(
     previewSide
 );
 
 
-// LIVE PREVIEW
+// Live Preview
 
 contentInput.addEventListener(
     "input",
     function () {
 
-        if (typeof marked !== "undefined") {
+        if (
+            typeof marked !== "undefined"
+        ) {
 
             preview.innerHTML =
                 marked.parse(
@@ -583,21 +867,27 @@ contentInput.addEventListener(
 );
 
 
-// Buttons
+// Save Button
 
 const saveButton =
     document.createElement("button");
+
 
 saveButton.textContent =
     "💾 Save Note";
 
 
+// Cancel Button
+
 const cancelButton =
     document.createElement("button");
+
 
 cancelButton.textContent =
     "Cancel";
 
+
+// Save Event
 
 saveButton.addEventListener(
     "click",
@@ -613,6 +903,8 @@ saveButton.addEventListener(
     }
 );
 
+
+// Cancel Event
 
 cancelButton.addEventListener(
     "click",
@@ -633,17 +925,21 @@ noteContent.appendChild(
     titleLabel
 );
 
+
 noteContent.appendChild(
     titleInput
 );
+
 
 noteContent.appendChild(
     editorContainer
 );
 
+
 noteContent.appendChild(
     saveButton
 );
+
 
 noteContent.appendChild(
     cancelButton
@@ -651,7 +947,7 @@ noteContent.appendChild(
 
 }
 
-// 10. Add Note
+// 13. Add Note
 
 function addNote(
 courseName,
@@ -662,6 +958,7 @@ content
 
 title =
     title.trim();
+
 
 content =
     content.trim();
@@ -715,7 +1012,7 @@ showNotes(
 
 }
 
-// 11. Delete Note
+// 14. Delete Note
 
 function deleteNote(
 courseName,
@@ -736,15 +1033,12 @@ if (!confirmDelete) {
 }
 
 
-const notes =
-    courses[courseName]
-        .weeks[weekName];
-
-
-notes.splice(
-    noteIndex,
-    1
-);
+courses[courseName]
+    .weeks[weekName]
+    .splice(
+        noteIndex,
+        1
+    );
 
 
 saveCourses();
@@ -757,7 +1051,7 @@ showNotes(
 
 }
 
-// 12. Show Edit Note Form
+// 15. Show Edit Note Form
 
 function showEditNoteForm(
 courseName,
@@ -773,6 +1067,7 @@ const note =
 pageTitle.textContent =
     "Edit Note";
 
+
 pageDescription.textContent =
     courseName + " - " + weekName;
 
@@ -780,10 +1075,11 @@ pageDescription.textContent =
 noteContent.innerHTML = "";
 
 
-// Note Title
+// Title
 
 const titleLabel =
     document.createElement("label");
+
 
 titleLabel.textContent =
     "Note Title";
@@ -792,8 +1088,10 @@ titleLabel.textContent =
 const titleInput =
     document.createElement("input");
 
+
 titleInput.type =
     "text";
+
 
 titleInput.value =
     note.title;
@@ -804,15 +1102,17 @@ titleInput.value =
 const editorContainer =
     document.createElement("div");
 
+
 editorContainer.classList.add(
     "editor-container"
 );
 
 
-// LEFT: Editor
+// Editor Side
 
 const editorSide =
     document.createElement("div");
+
 
 editorSide.classList.add(
     "editor-side"
@@ -822,12 +1122,14 @@ editorSide.classList.add(
 const editorTitle =
     document.createElement("h3");
 
+
 editorTitle.textContent =
     "✏️ Markdown Editor";
 
 
 const contentInput =
     document.createElement("textarea");
+
 
 contentInput.value =
     note.content;
@@ -837,15 +1139,17 @@ editorSide.appendChild(
     editorTitle
 );
 
+
 editorSide.appendChild(
     contentInput
 );
 
 
-// RIGHT: Preview
+// Preview Side
 
 const previewSide =
     document.createElement("div");
+
 
 previewSide.classList.add(
     "preview-side"
@@ -855,12 +1159,14 @@ previewSide.classList.add(
 const previewTitle =
     document.createElement("h3");
 
+
 previewTitle.textContent =
-    "👀 Preview";
+    " Preview";
 
 
 const preview =
     document.createElement("div");
+
 
 preview.classList.add(
     "markdown-preview"
@@ -888,29 +1194,31 @@ previewSide.appendChild(
     previewTitle
 );
 
+
 previewSide.appendChild(
     preview
 );
 
 
-// Put left + right together
-
 editorContainer.appendChild(
     editorSide
 );
+
 
 editorContainer.appendChild(
     previewSide
 );
 
 
-// LIVE PREVIEW
+// Live Preview
 
 contentInput.addEventListener(
     "input",
     function () {
 
-        if (typeof marked !== "undefined") {
+        if (
+            typeof marked !== "undefined"
+        ) {
 
             preview.innerHTML =
                 marked.parse(
@@ -928,21 +1236,27 @@ contentInput.addEventListener(
 );
 
 
-// Buttons
+// Save Button
 
 const saveButton =
     document.createElement("button");
+
 
 saveButton.textContent =
     "💾 Save Changes";
 
 
+// Cancel Button
+
 const cancelButton =
     document.createElement("button");
+
 
 cancelButton.textContent =
     "Cancel";
 
+
+// Save Event
 
 saveButton.addEventListener(
     "click",
@@ -959,6 +1273,8 @@ saveButton.addEventListener(
     }
 );
 
+
+// Cancel Event
 
 cancelButton.addEventListener(
     "click",
@@ -980,17 +1296,21 @@ noteContent.appendChild(
     titleLabel
 );
 
+
 noteContent.appendChild(
     titleInput
 );
+
 
 noteContent.appendChild(
     editorContainer
 );
 
+
 noteContent.appendChild(
     saveButton
 );
+
 
 noteContent.appendChild(
     cancelButton
@@ -998,7 +1318,7 @@ noteContent.appendChild(
 
 }
 
-// 13. Update Note
+// 16. Update Note
 
 function updateNote(
 courseName,
@@ -1010,6 +1330,7 @@ newContent
 
 newTitle =
     newTitle.trim();
+
 
 newContent =
     newContent.trim();
@@ -1045,6 +1366,7 @@ const note =
 note.title =
     newTitle;
 
+
 note.content =
     newContent;
 
@@ -1060,7 +1382,7 @@ showNote(
 
 }
 
-// 14. Save Courses to localStorage
+// 17. Save to localStorage
 
 function saveCourses() {
 
@@ -1073,7 +1395,7 @@ localStorage.setItem(
 
 }
 
-// 15. Load Courses from localStorage
+// 18. Load from localStorage
 
 function loadCourses() {
 
@@ -1085,9 +1407,20 @@ const savedCourses =
 
 if (savedCourses) {
 
-    return JSON.parse(
-        savedCourses
-    );
+    try {
+
+        return JSON.parse(
+            savedCourses
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Could not load saved courses:",
+            error
+        );
+
+    }
 
 }
 
@@ -1095,3 +1428,6 @@ if (savedCourses) {
 return courses;
 
 }
+
+// 19. Start Website
+showCourses();
