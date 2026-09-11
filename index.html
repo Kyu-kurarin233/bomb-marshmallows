@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +42,7 @@
     </header>
 
 
+
     <!-- =====================================================
          Main Website Area
          ===================================================== -->
@@ -68,7 +68,7 @@
             <div id="courseList"></div>
 
 
-            <!-- Add Course Button -->
+            <!-- Add Course -->
 
             <button
                 id="addCourseButton"
@@ -79,7 +79,7 @@
             </button>
 
 
-            <!-- Export Backup Button -->
+            <!-- Export Backup -->
 
             <button
                 id="exportButton"
@@ -88,6 +88,33 @@
             >
                 💾 Export Backup
             </button>
+
+
+            <!-- Import Backup -->
+
+            <button
+                id="importButton"
+                class="data-button"
+                type="button"
+            >
+                📂 Import Backup
+            </button>
+
+
+            <!--
+                Hidden file input.
+
+                The user does not see this directly.
+                JavaScript opens it when
+                Import Backup is clicked.
+            -->
+
+            <input
+                type="file"
+                id="importFile"
+                accept=".json,application/json"
+                hidden
+            >
 
         </aside>
 
@@ -115,7 +142,6 @@
 
         <!-- =================================================
              Main Content
-             Notes
              ================================================= -->
 
         <section class="content">
@@ -137,7 +163,8 @@
 
             <!--
                 JavaScript will put notes,
-                forms, Markdown editor,
+                forms,
+                Markdown editor,
                 and Markdown preview here.
             -->
 
@@ -162,32 +189,14 @@
          ===================================================== -->
 
 
-    <!--
-        Marked.js
-
-        Used to convert Markdown into HTML.
-
-        Example:
-
-        # Hello
-
-        becomes:
-
-        <h1>Hello</h1>
-    -->
+    <!-- Markdown Library -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
     ></script>
 
 
-    <!--
-        Your JavaScript
-
-        IMPORTANT:
-        script.js must be loaded AFTER marked.js
-        because script.js uses marked.parse().
-    -->
+    <!-- Your JavaScript -->
 
     <script
         src="script.js"
@@ -197,4 +206,3 @@
 </body>
 
 </html>
-```
