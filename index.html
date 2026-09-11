@@ -1,122 +1,200 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
+
+    <!-- Character Encoding -->
     <meta charset="UTF-8">
 
+    <!-- Mobile Responsive -->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <!-- Website Title -->
+    <title>Study Notes</title>
 
-<title>Study Notes</title>
-
-<!-- Connect CSS -->
-<link
-    rel="stylesheet"
-    href="style.css"
->
-
+    <!-- Connect CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
+
 
 <body>
 
 
-<!-- Website Header -->
-<header>
+    <!-- =====================================================
+         Website Header
+         ===================================================== -->
 
-    <h1>📚 Study Notes</h1>
+    <header>
 
-    <p>
-        为了方便复习，MyLO 简直就是个狗屎网站啊。
-    </p>
-
-</header>
-
-
-<!-- Main website area -->
-<main>
-
-    <!-- 左边：课程导航 -->
-    <aside class="sidebar">
-
-    <h3>Courses</h3>
-
-    <!-- JavaScript will put courses here -->
-    <div id="courseList"></div>
-
-    <!-- Add Course -->
-    <button
-        id="addCourseButton"
-        class="add-course-button"
-    >
-        ➕ Add Course
-    </button>
-
-    <button
-    id="exportButton"
-    class="data-button"
->
-    💾 Export Backup
-    </button>
-
-    </aside>
-
-
-
-    <!-- 中间：Week 导航 -->
-    <aside
-        class="week-sidebar"
-        id="weekSidebar"
-    >
-
-        <h3>Weeks</h3>
+        <h1>📚 Study Notes</h1>
 
         <p>
-            Select a course first.
+            为了方便复习，MyLO 简直就是个狗屎网站啊。
         </p>
 
-    </aside>
+    </header>
 
 
-    <!-- 右边：真正的笔记内容 -->
-    <section class="content">
+    <!-- =====================================================
+         Main Website Area
+         ===================================================== -->
 
-        <h2 id="pageTitle">
-            Ciallo ～(∠・ω< )⌒★ !
-        </h2>
-
-
-        <p id="pageDescription">
-            Select a course and week to start studying.
-        </p>
+    <main>
 
 
-        <div id="noteContent">
+        <!-- =================================================
+             Left Sidebar
+             Course Navigation
+             ================================================= -->
+
+        <aside class="sidebar">
+
+            <h3>Courses</h3>
+
+
+            <!--
+                JavaScript will automatically
+                create course buttons here.
+            -->
+
+            <div id="courseList"></div>
+
+
+            <!-- Add Course Button -->
+
+            <button
+                id="addCourseButton"
+                class="add-course-button"
+                type="button"
+            >
+                ➕ Add Course
+            </button>
+
+
+            <!-- Export Backup Button -->
+
+            <button
+                id="exportButton"
+                class="data-button"
+                type="button"
+            >
+                💾 Export Backup
+            </button>
+
+        </aside>
+
+
+
+        <!-- =================================================
+             Middle Sidebar
+             Week Navigation
+             ================================================= -->
+
+        <aside
+            class="week-sidebar"
+            id="weekSidebar"
+        >
+
+            <h3>Weeks</h3>
 
             <p>
-                Notes will appear here.
+                Select a course first.
             </p>
 
-        </div>
-
-    </section>
-
-</main>
+        </aside>
 
 
-<!-- JavaScript Libraries -->
 
-<!-- Markdown Library -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <!-- =================================================
+             Main Content
+             Notes
+             ================================================= -->
+
+        <section class="content">
 
 
-<!-- Your JavaScript -->
-<script src="script.js"></script>
+            <!-- Page Title -->
+
+            <h2 id="pageTitle">
+                Ciallo ～(∠・ω< )⌒★ !
+            </h2>
+
+
+            <!-- Page Description -->
+
+            <p id="pageDescription">
+                Select a course and week to start studying.
+            </p>
+
+
+            <!--
+                JavaScript will put notes,
+                forms, Markdown editor,
+                and Markdown preview here.
+            -->
+
+            <div id="noteContent">
+
+                <p>
+                    Notes will appear here.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JavaScript Libraries
+         ===================================================== -->
+
+
+    <!--
+        Marked.js
+
+        Used to convert Markdown into HTML.
+
+        Example:
+
+        # Hello
+
+        becomes:
+
+        <h1>Hello</h1>
+    -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+
+    <!--
+        Your JavaScript
+
+        IMPORTANT:
+        script.js must be loaded AFTER marked.js
+        because script.js uses marked.parse().
+    -->
+
+    <script
+        src="script.js"
+    ></script>
+
 
 </body>
 
 </html>
+```
