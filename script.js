@@ -137,4 +137,3 @@ if (addCourseButton) {
    Start Website
    ========================================================= */
 
-showCourses();

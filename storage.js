@@ -62,3 +62,6 @@ function loadCourses() {
 
     }
 
+}
+
+

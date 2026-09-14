@@ -332,3 +332,6 @@ function importCourses(event) {
     reader.readAsText(
         file
     );
+
+}
+
